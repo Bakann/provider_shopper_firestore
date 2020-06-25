@@ -1,20 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="A new Flutter project." name="description">
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="provider_shopper">
-  <link rel="apple-touch-icon" href="/icons/Icon-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-status-bar-style">
+    <meta content="provider_shopper" name="apple-mobile-web-app-title">
+    <link href="/icons/Icon-192.png" rel="apple-touch-icon">
 
-  <title>provider_shopper</title>
-  <link rel="manifest" href="/manifest.json">
+    <title>provider_shopper</title>
+    <link href="/manifest.json" rel="manifest">
 </head>
 <body>
-  <script src="main.dart.js" type="application/javascript"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-storage.js"></script>
+
+<!--<script src="/__/firebase/init.js"></script>-->
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDzggkGHvgaoIKSBlp6P7bb_Fa9bsT98rY",
+  authDomain: "lejusteprix-73404.firebaseapp.com",
+  databaseURL: "https://lejusteprix-73404.firebaseio.com",
+  projectId: "lejusteprix-73404",
+  storageBucket: "lejusteprix-73404.appspot.com",
+  messagingSenderId: "12422834668",
+  appId: "1:12422834668:web:b2bdb7717463afd2ee78c9",
+  measurementId: "G-0SNLD6D4S6"
+};
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+
+</script>
+
+<script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>

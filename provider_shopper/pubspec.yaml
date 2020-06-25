@@ -12,6 +12,7 @@ dependencies:
 
   # Import the provider package.
   provider: ^4.0.2
+  cloud_firestore: ^0.13.6
 
 dev_dependencies:
   flutter_test:

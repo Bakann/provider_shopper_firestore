@@ -22,7 +22,7 @@ Widget createCatalogScreen() => MultiProvider(
         ),
       ],
       child: MaterialApp(
-        home: MyCatalog(),
+        home: CatalogPage(),
       ),
     );
 

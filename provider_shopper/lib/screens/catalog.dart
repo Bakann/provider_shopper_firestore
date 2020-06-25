@@ -1,45 +1,42 @@
-// Copyright 2019 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+import 'dart:html';
+import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_shopper/models/cart.dart';
 import 'package:provider_shopper/models/catalog.dart';
+import 'package:provider_shopper/models/product.dart';
+import 'package:firebase/firebase.dart' as fb;
 
-class MyCatalog extends StatelessWidget {
+import 'addproduct.dart';
+
+class CatalogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var products = Provider.of<List<ProductModel>>(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           _MyAppBar(),
           SliverToBoxAdapter(child: SizedBox(height: 12)),
           SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => _MyListItem(index)),
-          ),
+              delegate: SliverChildBuilderDelegate(
+            (context, index) => _MyListItem(index, products[index]),
+            childCount: products.length,
+          )),
         ],
       ),
-    );
-  }
-}
-
-class _AddButton extends StatelessWidget {
-  final Item item;
-
-  const _AddButton({Key key, @required this.item}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var cart = Provider.of<CartModel>(context);
-
-    return FlatButton(
-      onPressed: cart.items.contains(item) ? null : () => cart.add(item),
-      splashColor: Theme.of(context).primaryColor,
-      child: cart.items.contains(item)
-          ? Icon(Icons.check, semanticLabel: 'ADDED')
-          : Text('ADD'),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Add product',
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push<dynamic>(
+            context,
+            MaterialPageRoute<dynamic>(builder: (context) => AddProductPage()),
+          );
+        },
+      ),
     );
   }
 }
@@ -62,13 +59,12 @@ class _MyAppBar extends StatelessWidget {
 
 class _MyListItem extends StatelessWidget {
   final int index;
+  final ProductModel product;
 
-  _MyListItem(this.index, {Key key}) : super(key: key);
+  _MyListItem(this.index, this.product, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var catalog = Provider.of<CatalogModel>(context);
-    var item = catalog.getByPosition(index);
     var textTheme = Theme.of(context).textTheme.headline6;
 
     return Padding(
@@ -80,15 +76,14 @@ class _MyListItem extends StatelessWidget {
             AspectRatio(
               aspectRatio: 1,
               child: Container(
-                color: item.color,
+                color: Colors.white,
               ),
             ),
             SizedBox(width: 24),
             Expanded(
-              child: Text(item.name, style: textTheme),
+              child: Text(product.name, style: textTheme),
             ),
             SizedBox(width: 24),
-            _AddButton(item: item),
           ],
         ),
       ),

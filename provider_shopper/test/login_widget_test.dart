@@ -27,7 +27,7 @@ void main() {
         initialRoute: '/',
         routes: {
           '/': (context) => MyLogin(),
-          '/catalog': (context) => MyCatalog(),
+          '/catalog': (context) => CatalogPage(),
         },
       ),
     ));
