@@ -8,6 +8,7 @@ import 'package:provider_shopper/models/cart.dart';
 import 'package:provider_shopper/models/catalog.dart';
 import 'package:provider_shopper/models/product.dart';
 import 'package:firebase/firebase.dart' as fb;
+import 'package:provider_shopper/screens/product.dart';
 
 import 'addproduct.dart';
 
@@ -71,20 +72,32 @@ class _MyListItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: LimitedBox(
         maxHeight: 48,
-        child: Row(
-          children: [
-            AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                color: Colors.white,
+        child: InkWell(
+          onTap: ()  {
+            Navigator.pushNamed(
+              context,
+              '/product',
+              arguments: ProductArguments(
+                product.documentID,
+                product.name,
               ),
-            ),
-            SizedBox(width: 24),
-            Expanded(
-              child: Text(product.name, style: textTheme),
-            ),
-            SizedBox(width: 24),
-          ],
+            );
+          },
+          child: Row(
+            children: [
+              AspectRatio(
+                aspectRatio: 1,
+                child: Container(
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(width: 24),
+              Expanded(
+                child: Text(product.name, style: textTheme),
+              ),
+              SizedBox(width: 24),
+            ],
+          ),
         ),
       ),
     );

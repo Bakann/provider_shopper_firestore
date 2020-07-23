@@ -14,21 +14,25 @@ class Product extends StatelessWidget {
   Future<void> _addMessage() async {
     await products.add(<String, dynamic>{
       'name': 'Hello world!',
-      'oldPrice': FieldValue.serverTimestamp(),
-      'newPrice': FieldValue.serverTimestamp(),
+//      'oldPrice': FieldValue.serverTimestamp(),
+//      'newPrice': FieldValue.serverTimestamp(),
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var products = Provider.of<List<ProductModel>>(context);
-    debugPrint(products.toString());
+    final ProductArguments args = ModalRoute.of(context).settings.arguments as ProductArguments;
 
     return Scaffold(
       body: Container(
-        child: Text(
-          products[products.length -1 ].name,
-          style: TextStyle(fontWeight: FontWeight.bold),
+        child: StreamProvider(
+          create: (_) => Firestore.instance
+              .collection('products')
+              .document(args.documentID)
+              .snapshots()
+              .map(
+                  (snapShot) => ProductModel.fromMap(snapShot)),
+          child: ProductDescription(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -38,4 +42,21 @@ class Product extends StatelessWidget {
       ),
     );
   }
+}
+
+class ProductDescription extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var product = Provider.of<ProductModel>(context);
+
+    return Text('Hi ${product.name}');
+  }
+
+}
+
+class ProductArguments {
+  final String documentID;
+  final String name;
+
+  ProductArguments(this.documentID, this.name);
 }

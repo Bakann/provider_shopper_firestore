@@ -7,11 +7,13 @@ class ProductModel {
   String name;
   String oldPrice;
   String newPrice;
+  String documentID;
 
   final DocumentReference reference;
 
-  ProductModel.fromMap(Map<String, dynamic> map, {this.reference})
-      : name = map['name'] as String,
-        newPrice = map['newPrice'] as String,
-        oldPrice = map['oldPrice'] as String;
+  ProductModel.fromMap(DocumentSnapshot documentSnapshot, {this.reference})
+      : name = documentSnapshot.data['name'] as String,
+        newPrice = documentSnapshot.data['newPrice'] as String,
+        oldPrice = documentSnapshot.data['oldPrice'] as String,
+        documentID = documentSnapshot.documentID;
 }

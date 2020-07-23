@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           initialData: List<ProductModel>(),
           create: (_) => Firestore.instance.collection('products').snapshots().map(
               (snapShot) => snapShot.documents
-                  .map((document) => ProductModel.fromMap(document.data))
+                  .map((document) => ProductModel.fromMap(document))
                   .toList()),
           child: CatalogPage(),
         ),
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => MyLogin(),
           '/catalog': (context) => CatalogPage(),
           '/cart': (context) => MyCart(),
-          '/products': (context) => Product(),
+          '/product': (context) => Product(),
         },
       ),
     );
